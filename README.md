@@ -1,4 +1,4 @@
-# Blockchain Exchange DAPP
+# DAPP Exchange
 
 This is Practical tutorial of Exchange token Dapp with React.
 
