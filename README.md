@@ -1,6 +1,6 @@
 # Blockchain Exchange DAPP
 
-This is Practical tutorial of Exchange token Dapp.
+This is Practical tutorial of Exchange token Dapp with React.
 
 ## Dependencies
 
@@ -9,6 +9,7 @@ This is Practical tutorial of Exchange token Dapp.
 - Truffle
 - Ganache
 - NodeJS
+- Metamask
 ```
 
 ### Deployment of smart contarct
