@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import { connect } from 'react-redux'
-import { loadWeb3, loadNetworkId, loadToken, loadExchange } from '../store/interactions'
+import { loadWeb3, loadNetworkId, loadToken, loadAccount, loadExchange } from '../store/interactions'
 
 class App extends Component {
 	componentDidMount() {
@@ -11,7 +11,7 @@ class App extends Component {
 
 	async loadBlockchainData(dispatch) {
 		const web3 = loadWeb3(dispatch)
-		// const account = await loadAccount(web3, dispatch)
+		const account = await loadAccount(web3, dispatch)
 		// const network = await loadNetwork(web3, dispatch)
 
 		const networkId = await loadNetworkId(web3, dispatch)
