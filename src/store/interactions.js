@@ -4,14 +4,13 @@ import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
 
 export const loadWeb3 = (dispatch) => {
-	const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545')
+	const web3 = new Web3(Web3.currentProvider || 'http://localhost:7545')
 	dispatch(web3Loaded(web3))
 	return web3
 }
 
 export const loadAccount = async (web3, dispatch) => {
 	const accounts = await web3.eth.getAccounts()
-	console.log(accounts)
 	const account = accounts[0]
 	dispatch(web3AccountLoaded(account))
 	return account
