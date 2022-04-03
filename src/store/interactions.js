@@ -28,7 +28,7 @@ export const loadNetworkId = async (web3, dispatch) => {
 	return networkId
 }
 
-export const loadToken = async (web3, networkId, dispatch) => {
+export const loadToken = (web3, networkId, dispatch) => {
 	try {
 		const token = new web3.eth.Contract(Token.abi, Token.networks[networkId].address)
 		dispatch(tokenLoaded(token))
@@ -39,7 +39,7 @@ export const loadToken = async (web3, networkId, dispatch) => {
 	}
 }
 
-export const loadExchange = async (web3, networkId, dispatch) => {
+export const loadExchange = (web3, networkId, dispatch) => {
 	try {
 		const exchange = new web3.eth.Contract(Exchange.abi, Exchange.networks[networkId].address)
 		dispatch(exchangeLoaded(exchange))
