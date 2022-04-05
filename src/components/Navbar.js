@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 
 const Navbar = ({ address }) => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a className="navbar-brand" href="#">
+			<a className="navbar-brand" href="/">
 				DAPP Exchange
 			</a>
 

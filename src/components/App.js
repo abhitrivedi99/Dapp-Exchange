@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadWeb3, loadNetworkId, loadToken, loadExchange, loadAccount, loadNetwork } from '../store/interactions'
 import Navbar from './Navbar'
+import Content from './Content'
 import './App.css'
 
 const loadBlockchainData = async (dispatch) => {
@@ -13,8 +14,10 @@ const loadBlockchainData = async (dispatch) => {
 
 	const networkId = await loadNetworkId(web3, dispatch)
 
-	loadToken(web3, networkId, dispatch)
-	loadExchange(web3, networkId, dispatch)
+	const token = await loadToken(web3, networkId, dispatch)
+	if (!token) window.alert('Contract not deployed to the current network. Please select another network from Metamask.')
+	const exchange = await loadExchange(web3, networkId, dispatch)
+	if (!exchange) window.alert('Contract not deployed to the current network. Please select another network from Metamask.')
 }
 
 const App = () => {
@@ -23,38 +26,16 @@ const App = () => {
 		loadBlockchainData(dispatch).then()
 	}, [dispatch])
 
-	const { account } = useSelector((state) => state.web3)
+	const { web3, token, exchange } = useSelector((state) => state)
+
+	const contarctLoaded = () => {
+		return token.loaded && exchange.loaded ? true : false
+	}
 
 	return (
 		<div>
-			<Navbar address={account} />
-
-			<div className="content">
-				<div className="vertical-split">
-					<div className="card bg-dark text-white">
-						<div className="card-header">Card Title</div>
-						<div className="card-body">
-							<p className="card-text">
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-							</p>
-							<a href="#" className="card-link">
-								Card link
-							</a>
-						</div>
-					</div>
-					<div className="card bg-dark text-white">
-						<div className="card-header">Card Title</div>
-						<div className="card-body">
-							<p className="card-text">
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the{' '}
-							</p>
-							<a href="#" className="card-link">
-								Card link
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Navbar address={web3.account} />
+			{contarctLoaded() ? <Content /> : <div className="content"></div>}
 		</div>
 	)
 }
