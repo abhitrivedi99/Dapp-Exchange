@@ -5,7 +5,7 @@ const Token = artifacts.require('Token')
 const Exchange = artifacts.require('Exchange')
 
 module.exports = async (deployer) => {
-	const eth = new Eth('HTTP://127.0.0.1:7545')
+	const eth = new Eth('http://127.0.0.1:7545')
 
 	const accounts = await eth.getAccounts()
 	await deployer.deploy(Token)

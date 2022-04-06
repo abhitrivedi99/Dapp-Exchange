@@ -6,7 +6,7 @@ contract Token {
 
     // Variable declarations
     string public name = "Wayne Token";
-    string public symbol = "Wayne";
+    string public symbol = "WAYNE";
     uint256 public decimals = 18;
     uint256 public totalSupply;
     mapping(address => uint256) public balanceOf;
