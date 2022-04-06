@@ -27,7 +27,7 @@ const Content = () => {
 					</div>
 				</div>
 			</div>
-			<div className="vertical-split">
+			<div className="vertical">
 				<div className="card bg-dark text-white">
 					<div className="card-header">Card Title</div>
 					<div className="card-body">
@@ -64,7 +64,7 @@ const Content = () => {
 					</div>
 				</div>
 			</div>
-			<div className="vertical-split">
+			<div className="vertical">
 				<div className="card bg-dark text-white">
 					<div className="card-header">Card Title</div>
 					<div className="card-body">
