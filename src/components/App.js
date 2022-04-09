@@ -28,14 +28,14 @@ const App = () => {
 
 	const { web3, token, exchange } = useSelector((state) => state)
 
-	const contarctLoaded = () => {
+	const isContractLoaded = () => {
 		return token.loaded && exchange.loaded ? true : false
 	}
 
 	return (
 		<div>
 			<Navbar address={web3.account} />
-			{contarctLoaded() ? <Content /> : <div className="content"></div>}
+			{isContractLoaded() ? <Content /> : <div className="content"></div>}
 		</div>
 	)
 }
