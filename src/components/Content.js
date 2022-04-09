@@ -3,6 +3,7 @@ import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadAllOrders } from '../store/interactions'
 import Trades from './Trades'
+import OrderBook from './OrderBook'
 import Spinner from './Spinner'
 
 const Content = () => {
@@ -46,19 +47,7 @@ const Content = () => {
 					</div>
 				</div>
 			</div>
-			<div className="vertical">
-				<div className="card bg-dark text-white">
-					<div className="card-header">Card Title</div>
-					<div className="card-body">
-						<p className="card-text">
-							Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the{' '}
-						</p>
-						<a href="#" className="card-link">
-							Card link
-						</a>
-					</div>
-				</div>
-			</div>
+			{loaded ? <OrderBook /> : <Spinner />}
 			<div className="vertical-split">
 				<div className="card bg-dark text-white">
 					<div className="card-header">Card Title</div>

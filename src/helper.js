@@ -13,3 +13,7 @@ export const tokens = ether
 export const GREEN = 'success'
 
 export const RED = 'danger'
+
+export const BUY = 'buy'
+
+export const SELL = 'sell'
