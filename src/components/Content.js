@@ -5,6 +5,7 @@ import { loadAllOrders } from '../store/interactions'
 import Trades from './Trades'
 import OrderBook from './OrderBook'
 import Spinner from './Spinner'
+import MyTransaction from './MyTransactions'
 
 const Content = () => {
 	const dispatch = useDispatch()
@@ -60,17 +61,7 @@ const Content = () => {
 						</a>
 					</div>
 				</div>
-				<div className="card bg-dark text-white">
-					<div className="card-header">Card Title</div>
-					<div className="card-body">
-						<p className="card-text">
-							Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the{' '}
-						</p>
-						<a href="#" className="card-link">
-							Card link
-						</a>
-					</div>
-				</div>
+				<MyTransaction />
 			</div>
 			{loaded ? <Trades /> : <Spinner />}
 		</div>
