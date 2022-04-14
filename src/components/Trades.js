@@ -26,7 +26,6 @@ const Trades = () => {
 										filledOrder.data.map((order, index) => {
 											return (
 												<tr className={`order-${order.id}`} key={index}>
-													{/* <th scope="row">{index}</th> */}
 													<td className="text-muted">{order.formattedTimestamp}</td>
 													<td>{order.tokenAmount}</td>
 													<td className={`text-${order.tokenPriceClass}`}>{order.tokenPrice}</td>

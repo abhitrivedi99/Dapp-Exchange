@@ -60,3 +60,23 @@ export const allOrdersLoaded = (allOrders) => {
 		orders: allOrders,
 	}
 }
+
+export const myFilledOrdersLoaded = (account, orders) => {
+	return {
+		type: 'MY_FILLED_ORDERS_LOADED',
+		payload: {
+			account,
+			orders,
+		},
+	}
+}
+
+export const myOpenOrdersLoaded = (account, orders) => {
+	return {
+		type: 'MY_OPEN_ORDERS_LOADED',
+		payload: {
+			account,
+			orders,
+		},
+	}
+}

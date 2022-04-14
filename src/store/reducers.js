@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { filledOrders, cancelledOrders, orderBook } from '../components/OrderHelper'
+import { filledOrders, cancelledOrders, orderBook, myFilledOrders, myOpenOrdersLoaded } from '../components/OrderHelper'
 
 const web3 = (state = {}, action) => {
 	switch (action.type) {
@@ -39,6 +39,16 @@ const exchange = (state = {}, action) => {
 			return {
 				...state,
 				allOrder: { loaded: true, data: orderBook(action.orders, state.filledOrder.data, state.cancelledOrder.data) },
+			}
+		case 'MY_FILLED_ORDERS_LOADED':
+			return {
+				...state,
+				myFilledOrder: { loaded: true, data: myFilledOrders(action.payload.orders, action.payload.account) },
+			}
+		case 'MY_OPEN_ORDERS_LOADED':
+			return {
+				...state,
+				myOpenedOrder: { loaded: true, data: myOpenOrdersLoaded(action.payload.orders, action.payload.account) },
 			}
 		default:
 			return state
