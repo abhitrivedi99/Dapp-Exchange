@@ -71,12 +71,54 @@ const decorateOrderBookOrder = (order) => {
 	return { ...order, orderType, orderTypeClass, orderFillClass }
 }
 
+const decorateMyFilledOrders = (orders, account) => {
+	return orders.map((order) => {
+		order = decorateOrder(order)
+		order = decorateMyFilledOrder(order, account)
+		return order
+	})
+}
+
+const decorateMyFilledOrder = (order, account) => {
+	const myOrder = order.user === account
+
+	let orderType = order.tokenGive === ETHER_ADDRESS ? SELL : BUY
+
+	if (myOrder) {
+		orderType = order.tokenGive === ETHER_ADDRESS ? BUY : SELL
+	}
+
+	const orderTypeClass = orderType === BUY ? GREEN : RED
+	const orderSign = orderType === BUY ? '+' : '-'
+
+	return { ...order, orderType, orderTypeClass, orderSign }
+}
+
+const decorateMyOpenOrders = (orders) => {
+	return orders.map((order) => {
+		order = decorateOrder(order)
+		order = decorateMyOpenOrder(order)
+		return order
+	})
+}
+
+const decorateMyOpenOrder = (order) => {
+	const orderType = order.tokenGive === ETHER_ADDRESS ? BUY : SELL
+	const orderTypeClass = orderType === BUY ? GREEN : RED
+
+	return {
+		...order,
+		orderType,
+		orderTypeClass,
+	}
+}
+
 export const filledOrders = (orders) => {
 	orders = orders.sort((a, b) => a.timestamp - b.timestamp)
 
 	orders = decoratedFilledOrders(orders)
-
 	orders = orders.sort((a, b) => b.timestamp - a.timestamp)
+
 	return orders
 }
 
@@ -104,4 +146,23 @@ export const orderBook = (orders, filled, cancelled) => {
 	let sellOrders = get(orders, SELL, [])
 	sellOrders = sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice)
 	return { ...orders, buyOrders, sellOrders }
+}
+
+export const myFilledOrders = (orders, account) => {
+	orders = orders.filter((order) => order.user === account || order.userFill === account)
+
+	orders = decorateMyFilledOrders(orders, account)
+	orders = orders.sort((a, b) => b.timestamp - a.timestamp)
+
+	return orders
+}
+
+export const myOpenOrdersLoaded = (orders, account) => {
+	// Filter orders created by current account
+	orders = orders.filter((order) => order.user === account)
+	// Decorate orders - add display attributes
+	orders = decorateMyOpenOrders(orders)
+	// Sort orders by date descending
+	orders = orders.sort((a, b) => b.timestamp - a.timestamp)
+	return orders
 }
