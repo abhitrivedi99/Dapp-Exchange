@@ -80,3 +80,10 @@ export const myOpenOrdersLoaded = (account, orders) => {
 		},
 	}
 }
+
+export const priceChartLoaded = (orders) => {
+	return {
+		type: 'PRICE_CHART_LOADED',
+		orders,
+	}
+}

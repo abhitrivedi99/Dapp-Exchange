@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { reject, groupBy, get } from 'lodash'
+import { reject, groupBy, get, maxBy, minBy } from 'lodash'
 import { ETHER_ADDRESS, ether, tokens, GREEN, RED, BUY, SELL } from '../helper'
 
 const decorateOrder = (order) => {
@@ -165,4 +165,54 @@ export const myOpenOrdersLoaded = (orders, account) => {
 	// Sort orders by date descending
 	orders = orders.sort((a, b) => b.timestamp - a.timestamp)
 	return orders
+}
+
+export const priceChartLoaded = (orders) => {
+	orders = orders.sort((a, b) => a.timestamp - b.timestamp)
+	orders = orders.map((order) => decorateOrder(order))
+
+	let lastOrder, secondLastOrder
+	;[secondLastOrder, lastOrder] = orders.slice(orders.length - 2, orders.length)
+
+	const series = [
+		{
+			data: buildGraphData(orders),
+		},
+	]
+
+	const lastPrice = lastOrder.tokenPrice || 0
+	const secondLastPrice = secondLastOrder.tokenPrice || 0
+	const lastPriceChange = lastPrice >= secondLastPrice ? '+' : '-'
+
+	return {
+		series,
+		lastPrice,
+		lastPriceChange,
+	}
+}
+
+const buildGraphData = (orders) => {
+	// Group the orders by hour for the graph
+	orders = groupBy(orders, (o) => moment.unix(o.timestamp).startOf('hour').format())
+
+	// Get each hour where data exists
+	const hours = Object.keys(orders)
+	console.log(hours)
+	const graphData = hours.map((hour) => {
+		// Fetch all the orders from current hour
+		const group = orders[hour]
+		console.log(group, hour)
+		// Calculate price values - open, high, low, close
+		const open = group[0]
+		const close = group[group.length - 1]
+		const high = maxBy(group, 'tokenPrice')
+		const low = minBy(group, 'tokenPrice')
+
+		return {
+			x: new Date(hour),
+			y: [open.tokenPrice, high.tokenPrice, low.tokenPrice, close.tokenPrice],
+		}
+	})
+
+	return graphData
 }
