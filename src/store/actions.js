@@ -87,3 +87,16 @@ export const priceChartLoaded = (orders) => {
 		orders,
 	}
 }
+
+export const orderCancelling = () => {
+	return {
+		type: 'ORDER_CANCELLING',
+	}
+}
+
+export const orderCancelled = (order) => {
+	return {
+		type: 'ORDER_CANCELLED',
+		order,
+	}
+}

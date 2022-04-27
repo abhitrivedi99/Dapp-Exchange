@@ -55,6 +55,19 @@ const exchange = (state = {}, action) => {
 				...state,
 				priceChart: { loaded: true, data: priceChartLoaded(action.orders) },
 			}
+		case 'ORDER_CANCELLING': {
+			return { ...state, orderCancelling: true }
+		}
+		case 'ORDER_CANCELLED': {
+			return {
+				...state,
+				orderCancelling: false,
+				cancelledOrder: {
+					loaded: true,
+					data: [...state.cancelledOrder.data, action.order],
+				},
+			}
+		}
 		default:
 			return state
 	}

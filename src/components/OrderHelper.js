@@ -197,11 +197,11 @@ const buildGraphData = (orders) => {
 
 	// Get each hour where data exists
 	const hours = Object.keys(orders)
-	console.log(hours)
+
 	const graphData = hours.map((hour) => {
 		// Fetch all the orders from current hour
 		const group = orders[hour]
-		console.log(group, hour)
+
 		// Calculate price values - open, high, low, close
 		const open = group[0]
 		const close = group[group.length - 1]

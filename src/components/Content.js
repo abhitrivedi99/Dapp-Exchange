@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { loadAllOrders } from '../store/interactions'
+import { loadAllOrders, subscribeToEvents } from '../store/interactions'
 import Trades from './Trades'
 import OrderBook from './OrderBook'
 import Spinner from './Spinner'
@@ -14,7 +14,10 @@ const Content = () => {
 
 	const loadBlockchainData = useCallback(
 		async (dispatch) => {
-			if (loaded) await loadAllOrders(contract, dispatch)
+			if (loaded && contract) {
+				await loadAllOrders(contract, dispatch)
+				await subscribeToEvents(dispatch, contract)
+			}
 		},
 		[contract, loaded],
 	)
